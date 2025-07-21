@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - {{ lab_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5" style="margin-top: 76px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-3">Contact Us</h1>
+                <p class="lead">Get in touch with our team for appointments, inquiries, or emergency services</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            <div class="col-lg-3 col-md-6">
+                <div class="contact-info-card text-center p-4 h-100 border rounded shadow-sm">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-map-marker-alt text-primary" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Visit Us</h5>
+                    <p class="text-muted">{{ lab_info.contact.address }}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="contact-info-card text-center p-4 h-100 border rounded shadow-sm">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-phone text-primary" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Call Us</h5>
+                    <p class="text-muted mb-2">
+                        <strong>Main:</strong><br>
+                        <a href="tel:{{ lab_info.contact.phone }}" class="text-decoration-none">{{ lab_info.contact.phone }}</a>
+                    </p>
+                    <p class="text-muted">
+                        <strong>Emergency:</strong><br>
+                        <a href="tel:{{ lab_info.contact.emergency }}" class="text-decoration-none text-danger">{{ lab_info.contact.emergency }}</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="contact-info-card text-center p-4 h-100 border rounded shadow-sm">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-envelope text-primary" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Email Us</h5>
+                    <p class="text-muted">
+                        <a href="mailto:{{ lab_info.contact.email }}" class="text-decoration-none">{{ lab_info.contact.email }}</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="contact-info-card text-center p-4 h-100 border rounded shadow-sm">
+                    <div class="icon-wrapper mb-3">
+                        <i class="fas fa-clock text-primary" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Hours</h5>
+                    <div class="text-muted small">
+                        <p class="mb-1"><strong>Mon-Fri:</strong><br>{{ lab_info.contact.hours.weekdays }}</p>
+                        <p class="mb-1"><strong>Saturday:</strong><br>{{ lab_info.contact.hours.saturday }}</p>
+                        <p class="mb-0"><strong>Sunday:</strong><br>{{ lab_info.contact.hours.sunday }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="bg-white p-5 rounded shadow">
+                    <h2 class="text-center mb-4">Send Us a Message</h2>
+                    <p class="text-center text-muted mb-5">
+                        Fill out the form below and we'll get back to you within 24 hours during business days
+                    </p>
+                    
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.name.id }}" class="form-label">{{ form.name.label.text }} *</label>
+                                {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else "")) }}
+                                {% if form.name.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.name.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="{{ form.email.id }}" class="form-label">{{ form.email.label.text }} *</label>
+                                {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else "")) }}
+                                {% if form.email.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="{{ form.phone.id }}" class="form-label">{{ form.phone.label.text }}</label>
+                                {{ form.phone(class="form-control" + (" is-invalid" if form.phone.errors else "")) }}
+                                {% if form.phone.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.phone.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="{{ form.service.id }}" class="form-label">{{ form.service.label.text }}</label>
+                                {{ form.service(class="form-select" + (" is-invalid" if form.service.errors else "")) }}
+                                {% if form.service.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.service.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="{{ form.message.id }}" class="form-label">{{ form.message.label.text }} *</label>
+                                {{ form.message(class="form-control" + (" is-invalid" if form.message.errors else ""), rows="5") }}
+                                {% if form.message.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.message.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Notice -->
+<section class="py-4 bg-danger text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h5 class="mb-2">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Medical Emergency?
+                </h5>
+                <p class="mb-0">
+                    For urgent laboratory services, call our emergency line immediately: 
+                    <a href="tel:{{ lab_info.contact.emergency }}" class="text-white fw-bold">{{ lab_info.contact.emergency }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.contact-info-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+</style>
+{% endblock %}

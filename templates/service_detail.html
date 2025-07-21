@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.name }} - {{ lab_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5" style="margin-top: 76px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="mb-3">
+                    <span style="font-size: 4rem;">{{ service.icon }}</span>
+                </div>
+                <h1 class="display-4 fw-bold mb-3">{{ service.name }}</h1>
+                <p class="lead">{{ service.description }}</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{{ url_for('home') }}" class="text-white-50">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('services') }}" class="text-white-50">Services</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">{{ service.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="service-content">
+                    <h2 class="fw-bold mb-4">About {{ service.name }}</h2>
+                    <p class="lead text-muted mb-4">{{ service.description }}</p>
+                    
+                    <h3 class="fw-bold mb-3">Tests We Perform</h3>
+                    <div class="row g-3 mb-4">
+                        {% for test in service.tests %}
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 border rounded">
+                                <i class="fas fa-vial text-primary me-3" style="font-size: 1.5rem;"></i>
+                                <span class="fw-medium">{{ test }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <h3 class="fw-bold mb-3">Service Features</h3>
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="fas fa-clock text-primary me-3 mt-1"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-2">Fast Results</h5>
+                                    <p class="text-muted">{{ lab_info.turnaround_time }} average turnaround time for most tests in this category.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="fas fa-shield-alt text-primary me-3 mt-1"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-2">Accurate Results</h5>
+                                    <p class="text-muted">{{ lab_info.accuracy_rate }} accuracy rate with rigorous quality control measures.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="fas fa-microscope text-primary me-3 mt-1"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-2">Advanced Technology</h5>
+                                    <p class="text-muted">State-of-the-art equipment and cutting-edge diagnostic methods.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <i class="fas fa-user-md text-primary me-3 mt-1"></i>
+                                <div>
+                                    <h5 class="fw-bold mb-2">Expert Analysis</h5>
+                                    <p class="text-muted">Board-certified pathologists and experienced technologists.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if service.id == 'clinical-chemistry' %}
+                    <h3 class="fw-bold mb-3">Sample Requirements</h3>
+                    <div class="alert alert-info">
+                        <h6 class="fw-bold">Fasting Requirements:</h6>
+                        <p class="mb-2">For lipid profiles and glucose testing, patients should fast for 8-12 hours before sample collection.</p>
+                        <h6 class="fw-bold">Sample Type:</h6>
+                        <p class="mb-0">Serum or plasma samples collected in appropriate tubes.</p>
+                    </div>
+                    {% elif service.id == 'molecular-diagnostics' %}
+                    <h3 class="fw-bold mb-3">Specialized Testing</h3>
+                    <div class="alert alert-info">
+                        <h6 class="fw-bold">PCR Testing:</h6>
+                        <p class="mb-2">Real-time PCR for infectious disease detection and viral load monitoring.</p>
+                        <h6 class="fw-bold">Genetic Testing:</h6>
+                        <p class="mb-0">Comprehensive genetic analysis for hereditary conditions and pharmacogenomics.</p>
+                    </div>
+                    {% elif service.id == 'microbiology' %}
+                    <h3 class="fw-bold mb-3">Culture & Sensitivity</h3>
+                    <div class="alert alert-info">
+                        <h6 class="fw-bold">Sample Collection:</h6>
+                        <p class="mb-2">Proper sterile collection techniques are essential for accurate results.</p>
+                        <h6 class="fw-bold">Antimicrobial Testing:</h6>
+                        <p class="mb-0">Comprehensive susceptibility testing to guide antibiotic therapy.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 100px;">
+                    <!-- Contact Card -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold mb-3">Need This Test?</h5>
+                            <p class="text-muted mb-4">Contact us to schedule your {{ service.name|lower }} testing</p>
+                            <div class="d-grid gap-2">
+                                <a href="{{ url_for('contact') }}?service={{ service.id }}" class="btn btn-primary">
+                                    <i class="fas fa-calendar-alt me-2"></i>Schedule Test
+                                </a>
+                                <a href="tel:{{ lab_info.contact.phone }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-phone me-2"></i>{{ lab_info.contact.phone }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hours Card -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold mb-3">
+                                <i class="fas fa-clock text-primary me-2"></i>Operating Hours
+                            </h6>
+                            <div class="small">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Monday - Friday:</span>
+                                    <span>{{ lab_info.contact.hours.weekdays }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Saturday:</span>
+                                    <span>{{ lab_info.contact.hours.saturday }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Sunday:</span>
+                                    <span>{{ lab_info.contact.hours.sunday }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Emergency Card -->
+                    <div class="card shadow border-danger">
+                        <div class="card-body text-center">
+                            <h6 class="card-title fw-bold text-danger mb-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>Emergency Services
+                            </h6>
+                            <p class="small text-muted mb-3">24/7 emergency laboratory services available</p>
+                            <a href="tel:{{ lab_info.contact.emergency }}" class="btn btn-danger">
+                                <i class="fas fa-phone me-2"></i>{{ lab_info.contact.emergency }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Services -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h3 class="fw-bold text-center mb-5">Other Laboratory Services</h3>
+        <div class="row g-4">
+            {% for other_service in services %}
+            {% if other_service.id != service.id %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm hover-lift">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">{{ other_service.icon }}</span>
+                        </div>
+                        <h5 class="card-title fw-bold">{{ other_service.name }}</h5>
+                        <p class="card-text text-muted">{{ other_service.description[:100] }}...</p>
+                        <a href="{{ url_for('service_detail', service_id=other_service.id) }}" class="btn btn-outline-primary">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.page-header {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.5);
+}
+</style>
+{% endblock %}

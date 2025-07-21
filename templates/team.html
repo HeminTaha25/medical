@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}Our Team - {{ lab_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5" style="margin-top: 76px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-3">Our Expert Team</h1>
+                <p class="lead">Meet the dedicated professionals who make accurate diagnostics possible</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Members -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for member in team %}
+            <div class="col-lg-6">
+                <div class="team-member-card h-100 p-4 border rounded shadow-sm hover-lift">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center mb-3 mb-md-0">
+                            <div class="team-image">
+                                <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                                    <i class="fas fa-user-md text-white" style="font-size: 4rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="fw-bold mb-2">{{ member.name }}</h4>
+                            <p class="text-primary fw-medium mb-2">{{ member.credentials }}</p>
+                            <p class="text-muted mb-3">{{ member.title }}</p>
+                            <div class="mb-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-briefcase me-2"></i>{{ member.experience }}
+                                </small>
+                            </div>
+                            <p class="small text-muted mb-3">
+                                <strong>Specialization:</strong> {{ member.specialization }}
+                            </p>
+                            <div class="d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="mailto:{{ member.name.split()[0].lower() }}.{{ member.name.split()[-1].lower() }}@{{ lab_info.contact.email.split('@')[1] }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Team Stats -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold mb-4">Our Team by the Numbers</h2>
+                <p class="lead text-muted">
+                    Decades of combined experience in laboratory medicine and diagnostics
+                </p>
+            </div>
+        </div>
+        
+        <div class="row g-4 text-center">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card p-4">
+                    <div class="stat-icon mb-3">
+                        <i class="fas fa-user-md text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h3 class="display-6 fw-bold text-primary">{{ team|length }}</h3>
+                    <p class="text-muted mb-0">Senior Staff Members</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card p-4">
+                    <div class="stat-icon mb-3">
+                        <i class="fas fa-graduation-cap text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h3 class="display-6 fw-bold text-primary">45+</h3>
+                    <p class="text-muted mb-0">Years Combined Experience</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card p-4">
+                    <div class="stat-icon mb-3">
+                        <i class="fas fa-certificate text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h3 class="display-6 fw-bold text-primary">12</h3>
+                    <p class="text-muted mb-0">Board Certifications</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card p-4">
+                    <div class="stat-icon mb-3">
+                        <i class="fas fa-microscope text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h3 class="display-6 fw-bold text-primary">6</h3>
+                    <p class="text-muted mb-0">Specialty Areas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Departments -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="display-5 fw-bold mb-4">Our Departments</h2>
+                <p class="lead text-muted">
+                    Specialized teams dedicated to different areas of laboratory medicine
+                </p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="department-card text-center p-4 border rounded shadow-sm hover-lift">
+                    <div class="department-icon mb-3">
+                        <i class="fas fa-flask text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Clinical Chemistry</h5>
+                    <p class="text-muted mb-3">Metabolic panels, cardiac markers, and therapeutic drug monitoring</p>
+                    <span class="badge bg-primary">2 Specialists</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="department-card text-center p-4 border rounded shadow-sm hover-lift">
+                    <div class="department-icon mb-3">
+                        <i class="fas fa-dna text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Molecular Diagnostics</h5>
+                    <p class="text-muted mb-3">Genetic testing, PCR analysis, and personalized medicine</p>
+                    <span class="badge bg-primary">1 Specialist</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="department-card text-center p-4 border rounded shadow-sm hover-lift">
+                    <div class="department-icon mb-3">
+                        <i class="fas fa-bacteria text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Microbiology</h5>
+                    <p class="text-muted mb-3">Infectious disease testing and antimicrobial susceptibility</p>
+                    <span class="badge bg-primary">1 Specialist</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="department-card text-center p-4 border rounded shadow-sm hover-lift">
+                    <div class="department-icon mb-3">
+                        <i class="fas fa-tint text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Hematology</h5>
+                    <p class="text-muted mb-3">Blood disorders, coagulation studies, and CBC analysis</p>
+                    <span class="badge bg-primary">1 Specialist</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="department-card text-center p-4 border rounded shadow-sm hover-lift">
+                    <div class="department-icon mb-3">
+                        <i class="fas fa-shield-virus text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Immunology</h5>
+                    <p class="text-muted mb-3">Autoimmune testing and allergy diagnostics</p>
+                    <span class="badge bg-primary">Shared Expertise</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="department-card text-center p-4 border rounded shadow-sm hover-lift">
+                    <div class="department-icon mb-3">
+                        <i class="fas fa-eye text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Pathology</h5>
+                    <p class="text-muted mb-3">Tissue analysis, cytology, and anatomical pathology</p>
+                    <span class="badge bg-primary">Director Oversight</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Join Our Team -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h3 class="fw-bold mb-3">
+                    <i class="fas fa-users me-2"></i>
+                    Join Our Team
+                </h3>
+                <p class="mb-0">
+                    We're always looking for talented professionals to join our laboratory team. 
+                    If you're passionate about diagnostic medicine and patient care, we'd love to hear from you.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg">
+                    <i class="fas fa-briefcase me-2"></i>View Careers
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.page-header {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.team-member-card, .department-card, .stat-card {
+    transition: all 0.3s ease;
+}
+
+.team-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+</style>
+{% endblock %}
